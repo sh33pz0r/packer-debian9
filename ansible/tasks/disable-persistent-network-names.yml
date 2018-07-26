@@ -5,12 +5,21 @@
     regexp: '(?:(?:eno|ens|enp)\w+)'
     replace: 'eth0'
   become: yes
+  when: ansible_distribution == 'Debian'
+
+- name: Configure eth0 in network interfaces - Netplan
+  replace:
+    dest: "/etc/netplan/01-netcfg.yaml"
+    regexp: '(?:(?:eno|ens|enp)\w+)'
+    replace: 'eth0'
+  become: yes
+  when: ansible_distribution == 'Ubuntu'
 
 - name: Configure grub to disable persistent network names
   replace:
     dest: "/etc/default/grub"
     regexp: '(^\s*GRUB_CMDLINE_LINUX="\s*.*?)(?:\s*net\.ifnames\=[0-9]\s*)*(.*"*$)'
-    replace: '\1net.ifnames=0 \2'
+    replace: '\1net.ifnames=0 ipv6.disable=1 \2'
   become: yes
   register: configure_grub_disable_persistent_network_names
 
