@@ -60,9 +60,9 @@
           [ "-m", "1024M" ]
       ],
       "shutdown_command": "sudo /sbin/halt -h -p",
-      "ssh_password": "root",
+      "ssh_password": "packer",
       "ssh_port": 22,
-      "ssh_username": "root",
+      "ssh_username": "packer",
       "ssh_wait_timeout": "1800s",
       "type": "qemu",
       "vm_name": "{{ user `build_name` }}-{{ user `build_id` }}"
@@ -75,14 +75,14 @@
       "execute_command": "{{.Vars}} bash '{{.Path}}'",
       "inline": [
         "sleep 15",
-        "DEBIAN_FRONTEND=noninteractive apt-get -y update",
-        "DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::=\"--force-confdef\" -o Dpkg::Options::=\"--force-confold\" dist-upgrade",
-        "DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::=\"--force-confdef\" -o Dpkg::Options::=\"--force-confold\" install build-essential qemu-guest-agent python-dev libffi-dev cloud-init cloud-utils libssl-dev libxml2-dev libxslt1-dev zlib1g-dev",
-        "DEBIAN_FRONTEND=noninteractive apt-get -y -o Dpkg::Options::=\"--force-confdef\" -o Dpkg::Options::=\"--force-confold\" --purge remove python-cffi",
-        "wget https://bootstrap.pypa.io/get-pip.py -O /usr/local/bin/get-pip.py",
-        "chmod +x /usr/local/bin/get-pip.py",
-        "python /usr/local/bin/get-pip.py",
-        "pip install ansible==2.4.2"
+        "sudo apt-get -y update",
+        "sudo apt-get -y dist-upgrade",
+        "sudo apt-get -y install build-essential qemu-guest-agent python-dev libffi-dev cloud-init cloud-utils libssl-dev libxml2-dev libxslt1-dev zlib1g-dev",
+        "sudo apt-get -y --purge remove python-cffi",
+        "sudo wget https://bootstrap.pypa.io/get-pip.py -O /usr/local/bin/get-pip.py",
+        "sudo chmod +x /usr/local/bin/get-pip.py",
+        "sudo python /usr/local/bin/get-pip.py",
+        "sudo -H pip install ansible==2.4.2"
         ]
     },
     {
@@ -98,14 +98,14 @@
       "type": "shell",
       "execute_command": "{{.Vars}} bash '{{.Path}}'",
       "inline": [
-        "pip uninstall -y ansible httplib2 Jinja2 paramiko PyYAML six",
-        "apt-get -y purge python-dev python-pip libffi-dev libssl-dev libxml2-dev libxslt1-dev zlib1g-dev",
-        "rm -rf /var/lib/cloud/instance",
-        "systemctl enable cloud-init.service; systemctl enable cloud-init-local.service; systemctl enable cloud-config.service",
-        "localedef -i en_US -f UTF-8 en_US.UTF-8",
-        "apt-get -y autoremove --purge",
-        "apt-get -y clean",
-        "rm -rf /tmp ; mkdir /tmp ; chmod 1777 /tmp"
+        "sudo pip uninstall -y ansible httplib2 Jinja2 paramiko PyYAML six",
+        "sudo apt-get -y purge python-dev python-pip libffi-dev libssl-dev libxml2-dev libxslt1-dev zlib1g-dev",
+        "sudo rm -rf /var/lib/cloud/instance",
+        "sudo systemctl enable cloud-init.service; systemctl enable cloud-init-local.service; systemctl enable cloud-config.service",
+        "sudo localedef -i en_US -f UTF-8 en_US.UTF-8",
+        "sudo apt-get -y autoremove --purge",
+        "sudo apt-get -y clean",
+        "sudo rm -rf /tmp ; mkdir /tmp ; chmod 1777 /tmp"
       ]
     }
   ]
