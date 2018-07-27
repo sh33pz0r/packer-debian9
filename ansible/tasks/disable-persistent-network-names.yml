@@ -13,7 +13,7 @@
     regexp: '(?:(?:eno|ens|enp)\w+)'
     replace: 'eth0'
   become: yes
-  when: ansible_distribution == 'Ubuntu'
+  when: ansible_distribution == "Ubuntu" and ansible_distribution_version == "18.04"
 
 - name: Configure grub to disable persistent network names
   replace:
