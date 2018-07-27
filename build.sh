@@ -44,10 +44,14 @@ elif [[ $1 == "debian" ]] ; then
     shift 1
     export PACKER_LOG=1
     packer build $@ ./packer-debian9-qemu-kvm.json
-elif [[ $1 == "ubuntu" ]] ; then
+elif [[ $1 == "ubuntu18" ]] ; then
     shift 1
     export PACKER_LOG=1
     packer build $@ ./packer-ubuntu18.04.1-qemu-kvm.json
+elif [[ $1 == "ubuntu16" ]] ; then
+    shift 1
+    export PACKER_LOG=1
+    packer build $@ ./packer-ubuntu16.04.4-qemu-kvm.json
 else
     usage
 fi
