@@ -34,6 +34,8 @@
         "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
         "netcfg/get_domain={{ user `local_domain` }} <wait>",
         "netcfg/get_hostname={{ .Name }} <wait>",
+        "hostname={{ .Name }} <wait>",
+        "domain={{ user `local_domain` }} <wait>",
         "grub-installer/bootdev=/dev/sda<wait> ",
         "fb=false debconf/frontend=noninteractive ",
         "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA ",
