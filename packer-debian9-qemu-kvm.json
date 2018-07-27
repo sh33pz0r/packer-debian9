@@ -30,7 +30,7 @@
         "locale=en_US <wait>",
         "netcfg/get_domain={{ user `local_domain` }} <wait>",
         "netcfg/get_hostname={{ .Name }} <wait>",
-        "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg <wait>",
+        "preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed-debian9.cfg <wait>",
         "<enter><wait>"
       ],
       "boot_wait": "5s",
