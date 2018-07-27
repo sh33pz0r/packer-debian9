@@ -5,7 +5,9 @@
     regexp: '(?:(?:eno|ens|enp)\w+)'
     replace: 'eth0'
   become: yes
-  when: ansible_distribution == 'Debian'
+  when: 
+    - ansible_distribution == 'Debian'
+    - ansible_distribution == "Ubuntu" and ansible_distribution_version == "16.04"
 
 - name: Configure eth0 in network interfaces - Netplan
   replace:
