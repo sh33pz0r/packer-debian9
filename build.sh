@@ -40,10 +40,14 @@ if [[ $1 == "ec2ami" ]] ; then
     aws --region $AWS_REGION ec2 describe-images --image-ids $SOURCE_AMI > /dev/null || { echo "ERROR: SOURCE_AMI is not available"; exit 1; }
     shift 1
     packer build $@ ./packer-debian9-ec2ami.json
-elif [[ $1 == "debian" ]] ; then
+elif [[ $1 == "debian9.4" ]] ; then
     shift 1
     export PACKER_LOG=1
-    packer build $@ ./packer-debian9-qemu-kvm.json
+    packer build $@ ./packer-debian9.4-qemu-kvm.json
+elif [[ $1 == "debian9.5" ]] ; then
+    shift 1
+    export PACKER_LOG=1
+    packer build $@ ./packer-debian9.5-qemu-kvm.json
 elif [[ $1 == "ubuntu18" ]] ; then
     shift 1
     export PACKER_LOG=1
